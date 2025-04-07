@@ -1,4 +1,7 @@
 const myLibrary = [];
+const bookshelf = document.querySelector("#bookshelf");
+const addBookButton = document.querySelector("#addBook");
+const addBookModal = document.querySelector("#addBookModal");
 
 function addBookToLibrary(bookToAdd) {
   // take params, create a book then store it in the array
@@ -34,18 +37,26 @@ function removeBookFromLibrary(bookToRemove) {
   }
 }
 
+addBookButton.addEventListener("click", () => {
+  addBookModal.showModal();
+});
+
+
 const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, false);
 const prideAndPrejudice = new Book("Pride and Prejudice", "Jane Austen", 432, true);
 const nineteenEightyFour = new Book("1984", "George Orwell", 328, false);
 const toKillAMockingbird = new Book("To Kill a Mockingbird", "Harper Lee", 281, true);
 const theCatcherInTheRye = new Book("The Catcher in the Rye", "J.D. Salinger", 224, false);
 const theGreatGatsby = new Book("The Great Gatsby", "F. Scott Fitzgerald", 180, true);
+const mobyDick = new Book("Moby Dick", "Herman Melville", 635, true);
+const janeEyre = new Book("Jane Eyre", "Charlotte Brontë", 507, false);
+const dracula = new Book("Dracula", "Bram Stoker", 418, true);
+const theOdyssey = new Book("The Odyssey", "Homer", 324, false);
+const donQuixote = new Book("Don Quixote", "Miguel de Cervantes", 863, true);
+const theDivineComedy = new Book("The Divine Comedy", "Dante Alighieri", 798, false);
 
 
 console.log(myLibrary);
-
-const bookshelf = document.querySelector("#bookshelf");
-console.log(bookshelf);
 
 for (let i = 0; i < myLibrary.length; i++) {
   let newItem = document.createElement("div");
@@ -59,3 +70,4 @@ for (let i = 0; i < myLibrary.length; i++) {
   `;
   bookshelf.appendChild(newItem);
 }
+

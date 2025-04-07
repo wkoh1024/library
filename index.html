@@ -7,8 +7,26 @@
     <title>Library</title>
 </head>
 <body>
-    <div id="bookshelf">
-
+    <div class="content">
+        <button id="addBook">Add Book</button>
+        <dialog id="addBookModal">
+            <form action="" method="post">
+                <fieldset>
+                    <legend>Book Details</legend>
+                    <label for="bookTitle">Title</label>
+                    <input type="text" id="bookTitle" name="bookTitle">
+                    <label for="bookAuthor">Author</label>
+                    <input type="text" id="bookAuthor" name="bookAuthor">
+                    <label for="bookPages">Total Pages</label>
+                    <input type="number" id="bookPages" name="bookPages">
+                    <label for="bookIsRead">Already Read?</label>
+                    <input type="checkbox" id="bookIsRead" name="bookIsRead">
+                    <button type="submit">Submit</button>
+                </fieldset>
+            </form>
+        </dialog>
+        <div id="bookshelf">
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
