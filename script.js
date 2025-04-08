@@ -42,16 +42,24 @@ function removeBookFromLibrary(bookToRemove) {
 
 function displayBook(bookToAdd) {
   let newItem = document.createElement("div");
+  let deleteBookButton = document.createElement("button");
+  deleteBookButton.classList.add("deleteBookButton");
+  deleteBookButton.textContent = "Delete Book";
   newItem.classList.add("book");
   newItem.setAttribute("id", bookToAdd.id);
   newItem.innerHTML = `
-    <h2>${bookToAdd.title}</h2>
-    <p>Author: ${bookToAdd.author}</p>
-    <p>Pages: ${bookToAdd.pages}</p>
-    <p>Status: ${bookToAdd.isRead ? "Read" : "Not Read Yet"}</p>
+    <div>
+      <h2>${bookToAdd.title}</h2>
+      <p>Author: ${bookToAdd.author}</p>
+      <p>Pages: ${bookToAdd.pages}</p>
+      <p>Status: ${bookToAdd.isRead ? "Read" : "Not Read Yet"}</p>
+    </div>
   `;
+  newItem.appendChild(deleteBookButton);
   bookshelf.appendChild(newItem);
 }
+
+
 
 
 addBookButton.addEventListener("click", () => {

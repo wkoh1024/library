@@ -64,12 +64,6 @@ body {
     flex-wrap: wrap;
 }
 
-#bookshelf .book {
-    border: 1px solid black;
-    height: 100px;
-    padding: 5px;
-}
-
 .content {
     padding-top: 20px;
     display: flex;
@@ -89,4 +83,14 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: start;
+    border: 1px solid black;
+    height: 100px;
+    padding: 5px;
+    gap: 5px;
+}
+
+.deleteBookButton {
+    background-color: red;
+    color: white;
+    border-radius: 20px;
 }
