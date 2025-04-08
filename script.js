@@ -33,34 +33,48 @@ function Book(title, author, pages, isRead) {
   addBookToLibrary(this);
 }
 
-function removeBookFromLibrary(bookToRemove) {
-  const index = myLibrary.indexOf(bookToRemove);
+function removeBookFromLibrary(event) {
+  const deleteBookButton = event.currentTarget;
+  const bookID = deleteBookButton.parentNode.getAttribute("id");
+  const index = myLibrary.findIndex(book => bookID === book.id);
   if (index > -1) {
     myLibrary.splice(index, 1);
+    deleteBookButton.parentNode.remove();
+    console.log(myLibrary);
   }
 }
 
 function displayBook(bookToAdd) {
-  let newItem = document.createElement("div");
+  let newBook = document.createElement("div");
+  let newBookDetails = document.createElement("div");
   let deleteBookButton = document.createElement("button");
+  let isRead = document.createElement("input");
+  let readStatus = document.createElement("label");
+  let readStatusText = bookToAdd.isRead ? "Read" : "Not Read Yet";
+
+  isRead.setAttribute("type", "checkbox");
+  isRead.setAttribute("name", "isRead");
+  isRead.checked = bookToAdd.isRead;  
+
+  // readStatus.setAttribute("for", "isRead");
+  readStatus.textContent = readStatusText;
+  readStatus.append(isRead);
+
   deleteBookButton.classList.add("deleteBookButton");
   deleteBookButton.textContent = "Delete Book";
-  newItem.classList.add("book");
-  newItem.setAttribute("id", bookToAdd.id);
-  newItem.innerHTML = `
-    <div>
-      <h2>${bookToAdd.title}</h2>
-      <p>Author: ${bookToAdd.author}</p>
-      <p>Pages: ${bookToAdd.pages}</p>
-      <p>Status: ${bookToAdd.isRead ? "Read" : "Not Read Yet"}</p>
-    </div>
+  deleteBookButton.addEventListener("click", removeBookFromLibrary);
+
+  newBook.classList.add("book");
+  newBook.setAttribute("id", bookToAdd.id);
+  newBook.innerHTML = `
+    <h2>${bookToAdd.title}</h2>
+    <p>Author: ${bookToAdd.author}</p>
+    <p>Pages: ${bookToAdd.pages}</p>
   `;
-  newItem.appendChild(deleteBookButton);
-  bookshelf.appendChild(newItem);
+  newBook.appendChild(readStatus);
+  newBook.appendChild(deleteBookButton);
+  bookshelf.appendChild(newBook);
 }
-
-
-
 
 addBookButton.addEventListener("click", () => {
   addBookModal.showModal();
@@ -85,6 +99,8 @@ function addBookSubmitButtonHandler(event) {
 }
 
 
+
+
 const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, false);
 const prideAndPrejudice = new Book("Pride and Prejudice", "Jane Austen", 432, true);
 const nineteenEightyFour = new Book("1984", "George Orwell", 328, false);
@@ -97,4 +113,3 @@ const dracula = new Book("Dracula", "Bram Stoker", 418, true);
 const theOdyssey = new Book("The Odyssey", "Homer", 324, false);
 const donQuixote = new Book("Don Quixote", "Miguel de Cervantes", 863, true);
 const theDivineComedy = new Book("The Divine Comedy", "Dante Alighieri", 798, false);
-
