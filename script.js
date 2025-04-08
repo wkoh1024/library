@@ -53,11 +53,6 @@ function displayBook(bookToAdd) {
   bookshelf.appendChild(newItem);
 }
 
-function displayLibrary() {
-  for (let i = 0; i < myLibrary.length; i++) {
-    displayBook(myLibrary[i]);
-  }
-}
 
 addBookButton.addEventListener("click", () => {
   addBookModal.showModal();
@@ -75,6 +70,7 @@ function addBookSubmitButtonHandler(event) {
   if (title && author && pages) {
     const newBook = new Book(title, author, pages, isRead);
     addBookModal.close();
+    addBookForm.reset();
   } else {
     alert("Please fill in all fields.");
   }
