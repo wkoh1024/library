@@ -2,6 +2,8 @@ const myLibrary = [];
 const bookshelf = document.querySelector("#bookshelf");
 const addBookButton = document.querySelector("#addBook");
 const addBookModal = document.querySelector("#addBookModal");
+const addBookSubmitButton = document.querySelector("#addBookSubmit");
+const addBookForm = document.querySelector("#addBookForm");
 
 function addBookToLibrary(bookToAdd) {
   // take params, create a book then store it in the array
@@ -9,6 +11,7 @@ function addBookToLibrary(bookToAdd) {
     throw Error(`Object is not a "Book" item!`);
   }
   myLibrary.push(bookToAdd);
+  displayBook(bookToAdd);
 }
 
 function Book(title, author, pages, isRead) {
@@ -37,9 +40,45 @@ function removeBookFromLibrary(bookToRemove) {
   }
 }
 
+function displayBook(bookToAdd) {
+  let newItem = document.createElement("div");
+  newItem.classList.add("book");
+  newItem.setAttribute("id", bookToAdd.id);
+  newItem.innerHTML = `
+    <h2>${bookToAdd.title}</h2>
+    <p>Author: ${bookToAdd.author}</p>
+    <p>Pages: ${bookToAdd.pages}</p>
+    <p>Status: ${bookToAdd.isRead ? "Read" : "Not Read Yet"}</p>
+  `;
+  bookshelf.appendChild(newItem);
+}
+
+function displayLibrary() {
+  for (let i = 0; i < myLibrary.length; i++) {
+    displayBook(myLibrary[i]);
+  }
+}
+
 addBookButton.addEventListener("click", () => {
   addBookModal.showModal();
 });
+
+addBookSubmitButton.addEventListener("click", addBookSubmitButtonHandler);
+
+function addBookSubmitButtonHandler(event) {
+  event.preventDefault();
+  let title = document.querySelector("#bookTitle").value;
+  let author = document.querySelector("#bookAuthor").value;
+  let pages = document.querySelector("#bookPages").value;
+  let isRead = document.querySelector("#bookIsRead").checked;
+
+  if (title && author && pages) {
+    const newBook = new Book(title, author, pages, isRead);
+    addBookModal.close();
+  } else {
+    alert("Please fill in all fields.");
+  }
+}
 
 
 const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, false);
@@ -54,20 +93,4 @@ const dracula = new Book("Dracula", "Bram Stoker", 418, true);
 const theOdyssey = new Book("The Odyssey", "Homer", 324, false);
 const donQuixote = new Book("Don Quixote", "Miguel de Cervantes", 863, true);
 const theDivineComedy = new Book("The Divine Comedy", "Dante Alighieri", 798, false);
-
-
-console.log(myLibrary);
-
-for (let i = 0; i < myLibrary.length; i++) {
-  let newItem = document.createElement("div");
-  newItem.classList.add("book");
-  newItem.setAttribute("id", myLibrary[i].id);
-  newItem.innerHTML = `
-    <h2>${myLibrary[i].title}</h2>
-    <p>Author: ${myLibrary[i].author}</p>
-    <p>Pages: ${myLibrary[i].pages}</p>
-    <p>Status: ${myLibrary[i].isRead ? "Read" : "Not Read Yet"}</p>
-  `;
-  bookshelf.appendChild(newItem);
-}
 

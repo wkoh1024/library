@@ -10,7 +10,7 @@
     <div class="content">
         <button id="addBook">Add Book</button>
         <dialog id="addBookModal">
-            <form action="" method="post">
+            <form id="addBookForm" method="post">
                 <fieldset>
                     <legend>Book Details</legend>
                     <label for="bookTitle">Title</label>
@@ -21,7 +21,7 @@
                     <input type="number" id="bookPages" name="bookPages">
                     <label for="bookIsRead">Already Read?</label>
                     <input type="checkbox" id="bookIsRead" name="bookIsRead">
-                    <button type="submit">Submit</button>
+                    <button id="addBookSubmit" type="submit">Submit</button>
                 </fieldset>
             </form>
         </dialog>
