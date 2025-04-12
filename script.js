@@ -33,10 +33,16 @@ function Book(title, author, pages, isRead) {
   addBookToLibrary(this);
 }
 
+function findBookIndex(button) {
+  const bookID = button.closest(".book").getAttribute("id");
+  const index = myLibrary.findIndex(book => bookID === book.id);
+  return index;
+}
+
 function removeBookFromLibrary(event) {
   const deleteBookButton = event.currentTarget;
-  const bookID = deleteBookButton.parentNode.getAttribute("id");
-  const index = myLibrary.findIndex(book => bookID === book.id);
+  const index = findBookIndex(deleteBookButton);
+  console.log(index);
   if (index > -1) {
     myLibrary.splice(index, 1);
     deleteBookButton.parentNode.remove();
@@ -44,9 +50,18 @@ function removeBookFromLibrary(event) {
   }
 }
 
+function changeReadStatus(event) {
+  const readCheckbox = event.currentTarget;
+  const index = findBookIndex(readCheckbox);
+  console.log(index);
+  myLibrary[index].isRead = !(myLibrary[index].isRead);
+  let isRead = myLibrary[findBookIndex(readCheckbox)].isRead;
+  let readStatusText = isRead ? "Read" : "Not Read Yet";
+  readCheckbox.parentNode.childNodes[1].nodeValue = readStatusText;
+}
+
 function displayBook(bookToAdd) {
   let newBook = document.createElement("div");
-  let newBookDetails = document.createElement("div");
   let deleteBookButton = document.createElement("button");
   let isRead = document.createElement("input");
   let readStatus = document.createElement("label");
@@ -55,10 +70,10 @@ function displayBook(bookToAdd) {
   isRead.setAttribute("type", "checkbox");
   isRead.setAttribute("name", "isRead");
   isRead.checked = bookToAdd.isRead;  
+  isRead.addEventListener("click", changeReadStatus);
 
-  // readStatus.setAttribute("for", "isRead");
-  readStatus.textContent = readStatusText;
   readStatus.append(isRead);
+  readStatus.append(readStatusText);
 
   deleteBookButton.classList.add("deleteBookButton");
   deleteBookButton.textContent = "Delete Book";
