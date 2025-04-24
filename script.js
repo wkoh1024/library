@@ -14,23 +14,20 @@ function addBookToLibrary(bookToAdd) {
   displayBook(bookToAdd);
 }
 
-function Book(title, author, pages, isRead) {
-  // the constructor...
-  if (!new.target) {
-    throw Error(`Must use "new" operator!`);
+class Book {
+  constructor(title, author, pages, isRead) {
+    this.id = crypto.randomUUID();
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.isRead = isRead;
+    addBookToLibrary(this);
   }
-  this.id = crypto.randomUUID();
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
 
-  this.info = function() {
+  get info() {
     let isReadString = isRead ? "read" : "not read yet";
     return `${this.id}, "${this.title}" by ${this.author}, ${this.pages} pages, ${isReadString}`;
   }
-
-  addBookToLibrary(this);
 }
 
 function findBookIndex(button) {
